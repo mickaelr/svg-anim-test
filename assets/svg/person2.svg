@@ -1,0 +1,20 @@
+<g id="personTwoContainer">
+  <g id="personTwo">
+    <!-- Create the head. -->
+    <circle cx="150" cy="150" r="12" fill="black" id="head" />
+    <!-- Create the body. -->
+    <rect x="145" y="150" width="10" height="50" fill="black" id="body"/>
+    <!-- Create the left arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(145, 170) rotate(60, 5, 0)" id="leftarm"/>
+    <!-- Create the right arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(145, 170) rotate(-60, 5, 0)" id="rightarm"/>
+    <!-- Create the left leg. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(145, 200) rotate(30, 5, 0)" id="leftleg"/>
+    <!-- Create the left leg 2. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(134, 215) rotate(0, 5, 0)" id="leftleg2"/>
+    <!-- Create the right leg. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(145, 200) rotate(-30, 5, 0)" id="rightleg"/>
+    <!-- Create the right leg 2. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(156, 215) rotate(0, 5, 0)" id="rightleg2"/>
+  </g>
+</g>

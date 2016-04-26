@@ -1,0 +1,27 @@
+<g id="kiterContainer">
+  <g id="kiter">
+    <!-- Create the kitewing. -->
+    <g transform="scale(0.4)" id="kitewing">
+      <path d="M104.665,304.133c9.525-4.571,12.747-18.149,9.019-28.037c-12.412-32.924-36.5-105.494-33.135-164.925    c2.984-52.642,18.485-82.745,30.104-98.188c6.35-8.444,4.676-12.508-5.154-8.645C87.808,11.3,58.183,27.7,20.335,66.208    C12.942,73.744,5.177,88.432,3.571,98.874c-5.823,37.915-11.532,125.823,43.682,193.764    C47.253,292.638,68.501,321.479,104.665,304.133z"/>
+      <path d="M108.309,42.196c47.086,14.879,95.769,59.249,111.308,74.262c2.811,2.725,8.271,5.613,12.163,5.097    c15.587-2.018,25.512-18.484,29.988-27.903c1.683-3.558,2.812-9.783,2.295-13.694c-3.805-28.333-30.838-67.3-84.006-78.211    C122.271-10.101,108.31,42.196,108.309,42.196z"/>
+    </g>
+    <!-- Create the head. -->
+    <circle cx="150" cy="150" r="12" fill="black" id="head" />
+    <!-- Create the body. -->
+    <rect width="10" height="50" rx="5" ry="5" fill="black" transform="translate(145, 145) rotate(0, 5, 0)" id="body"/>
+    <!-- Create the left arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(142, 170) rotate(135, 5, 0)" id="leftarm"/>
+    <!-- Create the right arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(142, 170) rotate(90, 5, 0)" id="rightarm"/>
+    <!-- Create the left leg. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(145, 192) rotate(90, 5, 0)" id="leftleg"/>
+    <!-- Create the left leg 2. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(125, 190) rotate(30, 5, 0)" id="leftleg2"/>
+    <!-- Create the right leg. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(147, 190) rotate(30, 5, 0)" id="rightleg"/>
+    <!-- Create the right leg 2. -->
+    <rect width="10" height="25" rx="5" ry="5" fill="black" transform="translate(135, 205) rotate(-30, 5, 0)" id="rightleg2"/>
+    <!-- Create the kiteboard. -->
+    <rect width="80" height="10" rx="5" ry="5" fill="black" transform="translate(100, 192) rotate(30, 0, 5)" id="body"/>
+  </g>
+</g>

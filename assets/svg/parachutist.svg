@@ -1,0 +1,22 @@
+<g id="parachutistContainer">
+  <g id="parachutist">
+    <!-- Create the parachute. -->
+    <path d="M99.901 158.413c0 0 51.303-64.368 110.407-12.636 0 0 51.732-66.56 104.028 1.71 0 0 40.94-54.006 97.762 5.683 0 0-25.538-114.012-144.804-127.754 0.010-0.010-137.595-20.665-167.393 132.997z" transform="scale(0.48, 0.48) translate(-54, 0)" fill="black"/>
+    <!-- Create the left parachute string. -->
+    <rect width="4" height="90" rx="2" ry="2" fill="black" transform="translate(21, 72) rotate(-28, 2, 0)" id="leftstring"/>
+    <!-- Create the right parachute string. -->
+    <rect width="4" height="90" rx="2" ry="2" fill="black" transform="translate(166, 72) rotate(28, 2, 0)" id="rightstring"/>
+    <!-- Create the head. -->
+    <circle cx="96" cy="150" r="12" fill="black" id="head" />
+    <!-- Create the body. -->
+    <rect width="10" height="50" fill="black" transform="translate(91, 150)" id="body"/>
+    <!-- Create the left arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(91, 170) rotate(120, 5, 0)" id="leftarm"/>
+    <!-- Create the right arm. -->
+    <rect width="10" height="35" rx="5" ry="5" fill="black" transform="translate(91, 170) rotate(-120, 5, 0)" id="rightarm"/>
+    <!-- Create the left leg. -->
+    <rect width="10" height="45" rx="5" ry="5" fill="black" transform="translate(91, 200) rotate(30, 5, 0)" id="leftleg"/>
+    <!-- Create the right leg. -->
+    <rect width="10" height="45" rx="5" ry="5" fill="black" transform="translate(91, 200) rotate(-30, 5, 0)" id="rightleg"/>
+  </g>
+</g>
