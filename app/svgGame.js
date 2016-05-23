@@ -17,6 +17,7 @@ $(document).ready(function() {
   var lastObjectId = 0;
   var loading = true;
   var playable = false;
+  var playing = false;
 
 
 
@@ -62,14 +63,7 @@ $(document).ready(function() {
      OBSTACLES & REWARDS OBJECTS
   \* --------------------------- */
 
-  var entities = {
-    trees: [],
-    clouds: [],
-    birds: [],
-    boats: [],
-    fishes: [],
-    waves: []
-  };
+  var entities = {};
 
   function findEntitiesById(id) {
     if(isNaN(id)) return;
@@ -207,13 +201,20 @@ $(document).ready(function() {
     }
   });
 
-  function initEntities() {
-    entities.trees = treeBuilder.buildObjects(8, false);
-    entities.clouds = cloudBuilder.buildObjects(6, true);
-    entities.birds = birdBuilder.buildObjects(10, false);
-    entities.boats = boatBuilder.buildObjects(4, false);
-    entities.fishes = fishBuilder.buildObjects(10, false);
-    entities.waves = waveBuilder.buildObjects(20, false);
+  function removeEntitiesElements(entitiesArray) {
+    if(entitiesArray && entitiesArray.length > 0) {
+      for(var i = 0; i < entitiesArray.length; i++) {
+        if(entitiesArray[i] && entitiesArray[i].element) {
+          entitiesArray[i].element.remove();
+        }
+      }
+    }
+  }
+
+  function removeAllEntitiesElements() {
+    for(var i in entities) {
+      removeEntitiesElements(entities[i]);
+    }
   }
 
 
@@ -226,7 +227,7 @@ $(document).ready(function() {
   function startWorker() {
     if(typeof(Worker) !== "undefined") {
       if(typeof(worker) == "undefined") {
-        worker = new Worker("app/js/worker.js");
+        worker = new Worker("app/worker.js");
       }
       handleWorkerMessages();
     } else {
@@ -291,7 +292,8 @@ $(document).ready(function() {
       envFriction: envFriction,
       board: board,
       requestID: requestID,
-      lastObjectId: lastObjectId
+      lastObjectId: lastObjectId,
+      playing: playing
     };
   }
 
@@ -452,14 +454,15 @@ $(document).ready(function() {
     fps.getFPS();
   }
 
-  function startGame() {
+  function initGame() {
     loading = true;
-    incrementState();
-    onStateChange(playerState);
-    initEntities();
     startWorker();
     if(worker) {
       playable = true;
+    }
+    incrementState();
+    onStateChange(playerState);
+    if(worker) {
       worker.postMessage({
         command: 'update',
         game: formatGameVariables(),
@@ -467,16 +470,27 @@ $(document).ready(function() {
         entities: formatEntities()
       });
     }
-    loading = false;
+  }
 
+  function startGame() {
+    playing = true;
+    worker.postMessage({
+      command: 'play'
+    });
     requestID = window.requestAnimationFrame(frame);
-  };
+  }
 
-  function stopGame() {
+  function stopGame(deep) {
+    playing = false;
+    worker.postMessage({
+      command: 'pause'
+    });
     window.cancelAnimationFrame(requestID);
-    stopWorker();
-    playable = false;
-  };
+    if(deep === true) {
+      stopWorker();
+      playable = false;
+    }
+  }
 
 
 
@@ -493,22 +507,52 @@ $(document).ready(function() {
   function onStateChange(newState) {
     console.log('onStateChange to ' + newState);
     switch(newState) {
-      case 0:
-        break;
       case 1:
-        setGamerElements(newState);
-        break;
       case 2:
-        setGamerElements(newState);
-        break;
       case 3:
-        setGamerElements(newState);
-        break;
       case 4:
+        loading = true;
+        stopGame(false);
+        removeAllEntitiesElements();
         setGamerElements(newState);
+        gamer.element.show();
         break;
       case 5:
-        stopGame();
+        stopGame(true);
+        removeAllEntitiesElements();
+        break;
+    }
+    switch(newState) {
+      case 1:
+        entities = {
+          trees: treeBuilder.buildObjects(8, false)
+        };
+        break;
+      case 2:
+        entities = {
+          clouds: cloudBuilder.buildObjects(6, true),
+          birds: birdBuilder.buildObjects(10, false)
+        };
+        break;
+      case 3:
+        entities = {
+          boats: boatBuilder.buildObjects(4, false)
+        };
+        break;
+      case 4:
+        entities = {
+          fishes: fishBuilder.buildObjects(10, false),
+          waves: waveBuilder.buildObjects(20, false)
+        };
+        break;
+    }
+    switch(newState) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        loading = false;
+        startGame();
         break;
     }
   }
@@ -733,7 +777,11 @@ $(document).ready(function() {
   function onKeyDown(event) {
     switch (event.keyCode) {
       case 27: // escape key
-        stopGame();
+        if(playing === true) {
+          stopGame(false);
+        } else {
+          startGame();
+        }
         break;
       case 37: // left arrow
         keyLeft = true;
@@ -742,7 +790,7 @@ $(document).ready(function() {
         keyRight = true;
         break;
     }
-    if(worker) {
+    if(playing === true && worker) {
       worker.postMessage({
         command: 'keydown',
         game: formatGameVariables()
@@ -759,7 +807,7 @@ $(document).ready(function() {
         keyRight = false;
         break;
     }
-    if(worker) {
+    if(playing === true && worker) {
       worker.postMessage({
         command: 'keyup',
         game: formatGameVariables()
@@ -773,6 +821,6 @@ $(document).ready(function() {
      START GAME
   \* ---------- */
 
-  startGame();
+  initGame();
 
 });

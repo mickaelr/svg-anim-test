@@ -34,7 +34,7 @@ function instance() {
     time += 1000 / fps;
   timerIteration++;
 
-  if(game && gamer) {
+  if(game && game.playing === true && gamer) {
     calcGamerPosition();
     calcGamerInteractions();
     postMessage({
@@ -83,6 +83,14 @@ onmessage = function(e) {
         break;
       case 'keyup':
         game = e.data.game;
+        break;
+      case 'play':
+        if(game)
+          game.playing = true;
+        break;
+      case 'pause':
+        if(game)
+          game.playing = false;
         break;
     }
   }
